@@ -94,3 +94,9 @@ WHERE occupation LIKE '%manage%'
 GROUP BY occupation
 HAVING AVG(salary) > 75000;
 
+#using limit and aliasing
+#combine limit with order by to pull more powerful data such as 3 oldest employees
+SELECT *
+FROM employee_demographics
+ORDER BY age DESC
+LIMIT 3;
