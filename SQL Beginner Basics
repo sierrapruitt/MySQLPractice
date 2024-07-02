@@ -1,0 +1,96 @@
+#The data came from Alex the Analyst's github using file path: Beginner - Parks_and_Rec_Create_db.sql
+
+#Author's Note: pulling data from a database and table you're not actively working in;
+SELECT *
+FROM parks_and_recreation.employee_demographics;
+
+#Calculation in the select statement
+SELECT first_name,
+last_name,
+birth_date,
+age,
+age + 10
+FROM parks_and_recreation.employee_demographics;
+
+SELECT DISTINCT first_name
+FROM parks_and_recreation.employee_demographics;
+# distinct pulls only unique values
+SELECT DISTINCT gender
+FROM parks_and_recreation.employee_demographics;
+
+# WHERE Clause
+SELECT * 
+FROM employee_salary
+WHERE first_name = 'Leslie';
+
+SELECT * 
+FROM employee_salary
+WHERE salary >= 50000;
+
+SELECT *
+FROM employee_demographics
+WHERE gender = 'female';
+
+SELECT *
+FROM employee_demographics
+WHERE birth_date > '1985-01-01';
+
+# LOGICAL OPERATORS (AND, OR, NOT)
+SELECT *
+FROM employee_demographics
+WHERE (first_name = 'Leslie' AND age = 44) OR age > 55;
+
+# Like statement - for patterns not exact match
+# Percent and underscore - % = anything, _ = specific value
+
+SELECT *
+FROM employee_demographics
+WHERE first_name LIKE 'JER%';
+
+SELECT *
+FROM employee_demographics
+WHERE first_name LIKE 'A___%;
+#  this says it starts with an a, has 3 characters after it, and then can have anything after that
+# this yields both andy and april whereas not using the % would have only yielded Andy
+
+
+#group by and order by
+SELECT gender 
+FROM employee_demographics
+GROUP BY gender;
+
+SELECT gender, AVG(age)
+FROM employee_demographics
+GROUP BY gender;
+
+SELECT *
+FROM employee_salary;
+
+SELECT occupation, salary
+FROM employee_salary 
+GROUP BY occupation, salary;
+#notice that with the salary column, you have 2 office manager lines because they make 2 different salaries
+
+SELECT gender, AVG(age), MAX(age), MIN(age)
+FROM employee_demographics 
+GROUP BY gender;
+
+#HAVING and WHERE
+#HAVING works on aggregated function after the GROUP BY clause runs
+SELECT gender, AVG(age)
+FROM employee_demographics
+WHERE AVG (age) > 40
+GROUP BY gender; 
+#The above script will fail. Instead use a having clause
+SELECT gender, AVG(age)
+FROM employee_demographics
+GROUP BY gender
+HAVING AVG(age) > 40;
+
+#you can use both in a query though
+SELECT occupation, AVG(salary)
+FROM employee_salary
+WHERE occupation LIKE '%manage%'
+GROUP BY occupation
+HAVING AVG(salary) > 75000;
+
