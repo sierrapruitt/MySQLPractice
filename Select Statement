@@ -1,3 +1,3 @@
---Author's Note: pulling data from a database and table you're not actively working in;
+#Author's Note: pulling data from a database and table you're not actively working in;
 SELECT *
 FROM parks_and_recreation.employee_demographics;
